@@ -1,8 +1,24 @@
 #!/usr/bin/env bash
-wget --no-check-certificate -O shadowsocks.sh https://raw.githubusercontent.com/teddysun/shadowsocks_install/master/shadowsocks.sh
-chmod +x shadowsocks.sh
-./shadowsocks.sh 2>&1 | tee shadowsocks.log
-service shadowsocks start
-wget https://github.com/xtaci/kcptun/releases/download/v20230811/kcptun-linux-amd64-20230811.tar.gz
-tar -xvf kcptun-linux-amd64-20230811.tar.gz
-./server_linux_amd64 -l :5552 -t 45.76.210.75:8888 -key test -mtu 1400 -sndwnd 2048 -rcvwnd 2048 -mode fast2 > kcptun.log 2>&1 &
+sudo apt update
+sudo apt install -y shadowsocks-libev
+sudo vim /etc/shadowsocks-libev/config.json
+{
+    "server":["0.0.0.0"],
+    "mode":"tcp_and_udp",
+    "server_port":9988,
+    "local_port":1080,
+    "password":"19940114",
+    "timeout":86400,
+    "method":"chacha20-ietf-poly1305",
+    "plugin":"v2ray-plugin",
+    "plugin_opts":"server"
+}
+
+wget https://github.com/shadowsocks/v2ray-plugin/releases/download/v1.3.2/v2ray-plugin-linux-amd64-v1.3.2.tar.gz
+tar zxf v2ray-plugin-linux-amd64-v1.3.2.tar.gz
+sudo mv v2ray-plugin_linux_amd64 /usr/bin/v2ray-plugin
+sudo service shadowsocks-libev restart
+
+wget --no-check-certificate https://github.com/teddysun/across/raw/master/bbr.sh
+chmod +x bbr.sh
+sudo ./bbr.sh
