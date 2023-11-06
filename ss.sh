@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
-sudo apt update
-sudo apt install -y shadowsocks-libev
-sudo vim /etc/shadowsocks-libev/config.json
+apt update
+apt install -y shadowsocks-libev
+vim /etc/shadowsocks-libev/config.json
 {
     "server":["0.0.0.0"],
     "mode":"tcp_and_udp",
@@ -14,11 +14,11 @@ sudo vim /etc/shadowsocks-libev/config.json
     "plugin_opts":"server"
 }
 
-wget https://github.com/shadowsocks/v2ray-plugin/releases/download/v1.3.2/v2ray-plugin-linux-amd64-v1.3.2.tar.gz
-tar zxf v2ray-plugin-linux-amd64-v1.3.2.tar.gz
-sudo mv v2ray-plugin_linux_amd64 /usr/bin/v2ray-plugin
-sudo service shadowsocks-libev restart
-
 wget --no-check-certificate https://github.com/teddysun/across/raw/master/bbr.sh
 chmod +x bbr.sh
-sudo ./bbr.sh
+./bbr.sh
+
+wget https://github.com/shadowsocks/v2ray-plugin/releases/download/v1.3.2/v2ray-plugin-linux-amd64-v1.3.2.tar.gz
+tar zxf v2ray-plugin-linux-amd64-v1.3.2.tar.gz
+mv v2ray-plugin_linux_amd64 /usr/bin/v2ray-plugin
+service shadowsocks-libev restart
